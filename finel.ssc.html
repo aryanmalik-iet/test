@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SSC CHSL Tier-I Mathematics Practice Test</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
+    <style>
+        /* BASE & TYPOGRAPHY */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #f0f2f5; 
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* --- LANDING PAGE AND ADMIN PANEL (ORIGINAL LOOK) --- */
+        .header { text-align:center;background:#fff;padding:40px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);margin-top:20px; border-top:5px solid #e74c3c; }
+        .govt-logo{width:80px;height:80px;background:#e74c3c;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:bold;}
+        .header h1{color:#2c3e50;margin-bottom:10px;font-size:2.4em;font-weight:bold;text-transform:uppercase;letter-spacing:1px;}
+        .header h2{color:#e74c3c;font-weight:bold;margin-bottom:10px;font-size:1.3em;}
+        .header .subtitle{color:#7f8c8d;font-size:1.1em;margin-bottom:20px;font-style:italic;}
+        .exam-info { background: #f8f9fa; padding: 25px 30px; border-radius: 12px; margin: 20px 0; border-left: 6px solid #3498db; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2); max-width: 100%; text-align: left; font-size: 16px; line-height: 1.6; color: #2c3e50; }
+        .exam-info h3 { color: #2c3e50; margin-bottom: 15px; font-weight: 700; font-size: 1.5em; text-align: left; }
+        .exam-info ul { list-style: none; padding-left: 20px; margin: 0; }
+        .exam-info li { margin: 8px 0; padding-left: 20px; position: relative; text-align: left; }
+        .exam-info li:before { content: "•"; color: #3498db; font-weight: bold; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 18px; }
+
+        .btn{background:linear-gradient(45deg,#3498db,#2980b9);color:white;border:none;padding:18px 35px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;transition:all 0.3s ease;margin:10px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+        .btn-admin{background:linear-gradient(45deg,#e74c3c,#c0392b);}
+        
+        /* GENERAL UTILITIES */
+        .modal { display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.7);backdrop-filter:blur(5px);}
+        .modal-content { background-color:#fff;margin:10% auto;padding:40px;border-radius:12px;width:90%;max-width:500px;box-shadow:0 10px 40px rgba(0,0,0,0.3);border-top:5px solid #e74c3c;}
+        .modal h3{margin-bottom:25px;color:#2c3e50;font-size:1.5em;}
+        .modal input{width:100%;padding:15px;margin:15px 0;border:2px solid #ddd;border-radius:6px;font-size:16px;}
+        .close{color:#aaa;float:right;font-size:32px;font-weight:bold;cursor:pointer;margin-top:-15px;}
+        .close:hover{color:#e74c3c;}
+        .error-message{background:#f8d7da;color:#721c24;padding:15px;border-radius:8px;text-align:center;margin-top:10px;border:1px solid #f5c6cb;}
+        .admin-panel{display:none;background:#fff;padding:40px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);border-top:5px solid #e74c3c;}
+        .response-table{border-collapse:collapse;margin-top:20px;font-size:14px; width: 100%;}
+        .response-table th, .response-table td{border:1px solid #ddd;padding:12px;text-align:left;}
+        .response-table th{background:linear-gradient(45deg,#2c3e50,#34495e);color:white;font-weight:bold;}
+        .response-table tr:nth-child(even){background-color:#f9f9f9;}
+        /* END OF LANDING PAGE STYLES */
+
+
+        /* === NEW SSC EXAM INTERFACE STYLES === */
+
+        .quiz-container {
+            display: none;
+            background: #f0f2f5; 
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            min-height: 98vh; 
+        }
+
+        /* Top Header Bar */
+        .exam-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #f39c12; 
+        }
+        .exam-title { font-size: 1.1em; font-weight: bold; }
+
+        /* Timer Block */
+        .timer-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .timer-container {
+            background: #34495e;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 1em;
+            text-align: center;
+            border: 2px solid #e74c3c;
+        }
+        .timer-display { font-size: 1.2em; font-weight: bold; }
+        .timer-warning { background: #e74c3c !important; color: white !important; border-color: #f39c12 !important; animation: pulse 1s infinite; }
+        .timer-critical { background: #dc3545 !important; animation: flash 0.5s infinite; }
+        @keyframes pulse{0%{opacity:1;}50%{opacity:0.8;}100%{opacity:1;}}
+        @keyframes flash{0%{opacity:1;}50%{opacity:0.5;}100%{opacity:1;}}
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none; 
+            background: none;
+            border: 1px solid white;
+            color: white;
+            font-size: 24px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Main Test Layout */
+        #quizInterface {
+            display: flex;
+            flex-direction: row; 
+            height: calc(100vh - 70px); 
+        }
+
+        /* Left Panel: Questions and Controls */
+        .main-quiz-panel {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-right: 1px solid #ddd;
+        }
+        #questionsContainer {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto; 
+            display: none; /* Hidden until quiz starts */
+        }
+        /* Sign-in Form Styles (Center Aligned) */
+        .user-form {
+            background: #ecf0f1; 
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%; 
+        }
+        .user-form h3 { font-size: 1.5em; margin-bottom: 30px; color: #2c3e50; }
+        .user-form input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            width: 80%;
+            max-width: 300px;
+        }
+        .profile-mockup {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            background: #bdc3c7;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: #7f8c8d;
+        }
+        
+        /* Question Card */
+        .question-container {
+            border: none;
+            padding: 0;
+            display: none; 
+        }
+        .question-container.active {
+            display: block; 
+        }
+        .question {
+            background: white;
+            border: 1px solid #bdc3c7; 
+            border-radius: 4px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .question-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f39c12;
+            display: block; 
+        }
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .options { list-style: none; }
+        .option {
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid #dcdcdc;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+        .option:hover { background: #e6e6e6; border-color: #999; }
+        .option.selected {
+            background: #007bff; 
+            border-color: #007bff;
+            color: white;
+            font-weight: 500;
+        }
+        .option input[type="radio"] { display: none; }
+        .option label::before {
+            content: '';
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            background: white;
+        }
+        .option.selected label::before { background: white; border-color: white; box-shadow: 0 0 0 4px #007bff; }
+        .option.selected label { color: white; }
+        
+        /* Navigation Bar (Fixed Bottom on Mobile) */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #34495e; 
+            color: white;
+            border-top: 1px solid #2c3e50;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        .progress { font-size: 1em; font-weight: bold; color: white; }
+        .btn-nav { padding: 10px 15px; font-size: 14px; background: #28a745; }
+        #submitBtn { background: #dc3545 !important; }
+
+        /* Right Panel: Question Palette */
+        #palettePanel {
+            width: 250px;
+            min-width: 250px;
+            background: #ecf0f1; 
+            border-left: 1px solid #ddd;
+            padding: 15px;
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 20px;
+            overflow-y: auto;
+        }
+        .palette-header { font-size: 1.1em; font-weight: bold; margin-bottom: 15px; color: #333; text-decoration: underline; }
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; width: 100%; }
+        .palette-item {
+            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer; border: 1px solid #ccc;
+        }
+        /* Palette Colors */
+        .palette-default { background: #fff; color: #333; border: 1px solid #999; } 
+        .palette-answered { background: #28a745; color: white; border-color: #28a745; } 
+        .palette-unanswered { background: #e74c3c; color: white; border-color: #e74c3c; } 
+        .palette-current { background: #f39c12; color: white; border-color: #f39c12; box-shadow: 0 0 5px #f39c12; } 
+
+        /* === RESPONSIVENESS === */
+        
+        @media (max-width: 900px) {
+            /* Mobile Portrait: Hide palette, show toggle button */
+            #palettePanel { display: none; }
+            .main-quiz-panel { width: 100%; }
+            .menu-toggle { display: inline-block; } 
+            .user-form { height: 100vh; }
+
+            /* Navigation and main panel stacking */
+            .main-quiz-panel {
+                order: 2;
+                padding-bottom: 60px; 
+            }
+            .navigation {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+                padding: 8px 10px;
+            }
+            .progress { display: none; }
+            
+            /* Mobile Landscape: Show palette as sidebar */
+            @media (orientation: landscape) {
+                #quizInterface { flex-direction: row; height: calc(100vh - 70px); }
+                #palettePanel {
+                    display: flex; 
+                    width: 200px;
+                    min-width: 200px;
+                    order: 2;
+                    height: 100%;
+                }
+                .main-quiz-panel {
+                    width: calc(100% - 200px);
+                    order: 1;
+                }
+                .menu-toggle { display: none; }
+            }
+
+            /* Mobile Portrait: Palette Overlay */
+            @media (orientation: portrait) {
+                 #palettePanel.visible {
+                    display: flex;
+                    position: fixed;
+                    top: 55px; 
+                    right: 0;
+                    height: calc(100% - 115px); 
+                    z-index: 9;
+                    background: #f8f8f8;
+                    width: 80%;
+                    box-shadow: -3px 0 8px rgba(0,0,0,0.2);
+                }
+            }
+        }
+
+        /* ADMIN PANEL ENHANCEMENTS */
+        .response-report {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Column Toggle Bar Styling */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            gap: 15px;
+            background: #f8f8f8; /* Light background for the bar */
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        .toolbar label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #34495e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .toolbar input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        /* Hide the print button in the toolbar on the main page */
+        .toolbar .print-btn {
+            display: none; 
+        }
+
+        
+        /* DECORATED RESULT SUMMARY */
+        .summary-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #ecf0f1);
+            border-radius: 10px;
+            border: 2px solid #3498db;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .summary-details p {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 200;
+            padding: 5px 0;
+            border-left: 3px solid #3498db; 
+            padding-left: 10px;
+        }
+        .summary-details strong {
+            color: #2c3e50;
+            font-weight: 700;
+        }
+        .test-title {
+            color: #e74c3c;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            padding-bottom: 5px;
+            border-bottom: 2px dashed #e74c3c;
+        }
+        /* Status Coloring for better visual reports */
+        .summary-details p:nth-child(4) strong { color: #002290;  } /* Score */
+        .summary-details p:nth-child(5) strong { color: #28a745; } /* Percentage */
+        .summary-details p:nth-child(6) strong { color: #28a745; } /* Correct */
+        .summary-details p:nth-child(7) strong { color: #e74c3c; } /* Incorrect */
+        .summary-details p:nth-child(8) strong { color: #f39c12; } /* Unattempted */
+
+        /* Hidden columns CSS for toggling */
+        .response-table .hidden,
+        .response-table th.hidden {
+            display: none !important;
+        }
+        
+        /* --- PRINT MEDIA QUERIES (Simple and Robust) --- */
+        @media print {
+            /* Hide all admin panel buttons and controls */
+            .admin-panel > div:not(#responsesContainer) { display: none !important; }
+            .admin-panel > h2 { display: none !important; }
+
+            /* Hide the container buttons above the responses (Download/Clear buttons) */
+            .admin-panel > div:first-child { display: none !important; }
+
+            /* Hide the toolbar for column toggling */
+            .toolbar { display: none !important; }
+            
+            /* Ensure the responses container is visible */
+            #responsesContainer { display: block !important; padding: 0; margin: 0; }
+            
+            /* Remove any decorative background/shadows for clean print */
+            .response-report {
+                border: none;
+                box-shadow: none;
+                page-break-after: always; /* Ensure reports don't overlap */
+            }
+            .summary-details {
+                background: #fff;
+                border: 1px solid #ccc;
+                box-shadow: none;
+            }
+
+            /* Ensure MathJax elements print correctly */
+            .math-question * {
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="landingPage">
+            <div class="header">
+                <div class="govt-logo" style="background:#dc3545;border-radius:0;">SSC</div>
+                <h1>Staff Selection Commission</h1>
+                <h2>CHSL Tier-I Mathematics Practice Test 2</h2>
+                <p class="subtitle">Combined Higher Secondary Level Examination</p>
+                <div class="exam-info">
+                    <h3>Examination Instructions:</h3>
+                    <ul>
+                        <li>Total Questions: 45</li>
+                        <li>Maximum Marks: 90</li>
+                        <li>Time Duration: <strong>1 Hour 15 Minutes</strong></li>
+                        <li><strong style="color: #dc3545;">⚠️ Test will auto-submit when time expires</strong></li>
+                        <li>Marking Scheme: +2 for correct, -0.5 for incorrect, 0 for unattempted</li>
+                        <li>Do not refresh the page during exam</li>
+                    </ul>
+                </div>
+                <button class="btn" onclick="startTest()">Start Examination</button>
+                <button class="btn btn-admin" onclick="openAdminModal()">Admin Panel</button>
+            </div>
+        </div>
+
+        <div id="quizContainer" class="quiz-container">
+            <div class="exam-header">
+                <div class="exam-title">SSC CHSL - Mathematics Practice Test</div>
+                <div class="timer-group">
+                    <button class="menu-toggle" onclick="togglePalette()">☰</button>
+                    <div class="timer-container" id="timerContainer">
+                        <div class="timer-label">TIME REMAINING</div>
+                        <div class="timer-display" id="timerDisplay">01:15:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quizInterface">
+                <div class="main-quiz-panel">
+                    
+                    <div id="userForm" class="user-form">
+                        <div class="profile-mockup">
+                            <div class="profile-pic">👤</div>
+                            <h3 style="color:#2c3e50;">Enter Candidate Name</h3>
+                        </div>
+                        <input type="text" id="userName" placeholder="Enter your Name" required>
+                        <button class="btn" onclick="startQuiz()" style="background:#28a745; width:80%; max-width: 300px; margin-top: 25px;">Begin Examination</button>
+                    </div>
+
+                    <div id="autoSubmitWarning" class="auto-submit-warning" style="display: none;">
+                        ⚠️ WARNING: Test will be automatically submitted in less than 5 minutes!
+                    </div>
+
+                    <div id="questionsContainer"></div>
+
+                    <div class="navigation" id="navigation" style="display: none;">
+                        <button class="btn-nav" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
+                        <div class="progress" id="progress">Question 1 of 45</div>
+                        <button class="btn-nav" id="nextBtn" onclick="nextQuestion()">Next</button>
+                        <button class="btn-nav" id="submitBtn" onclick="submitTest()" style="display: none;">Submit Test</button>
+                    </div>
+                </div>
+
+                <div id="palettePanel" class="question-palette">
+                    <div class="palette-header">Question Palette</div>
+                    <div class="palette-grid" id="paletteGrid">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="adminPanel" class="admin-panel">
+            <h2 style="color: #2c3e50; margin-bottom: 20px;">Admin Panel - User Responses</h2>
+            <div style="margin-bottom: 20px;">
+                <button class="btn" onclick="downloadRawDataCSV()" style="background: #3498db;">Download Raw Data (CSV)</button>
+                <button class="btn" onclick="downloadResultsCSV()" style="background: #27ae60;">Download Final Results (CSV)</button>
+                <button class="btn" onclick="clearAllResponses()" style="background: #e74c3c;">Clear All Data</button>
+                <button class="btn" onclick="goHome()">Back to Home</button>
+                <!-- NEW PRINT BUTTON -->
+                <button class="btn" onclick="printReport()" style="background: #f39c12;">Print Report</button> 
+            </div>
+            <div id="responsesContainer">
+                <p>No responses yet.</p>
+            </div>
+            <div style="margin-top:12px;color:#666;font-size:13px;">
+                <strong>Note:</strong> Data is stored in JSONBin.
+            </div>
+        </div>
+        
+        <div id="successMessage" style="display: none;" class="success-message">
+            <h3>✅ Test Submitted Successfully!</h3>
+            <p>Your responses have been recorded successfully. <br>You can check your score on the admin panel.</p>
+            <button class="btn" onclick="goHome()" style="margin-top: 20px; background: white; color: #2c3e50;">Back to Home</button>
+        </div>
+    </div>
+
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('passwordModal')">&times;</span>
+            <h3 id="modalTitle">Enter Test PIN</h3>
+            <input type="password" id="testPinInput" placeholder="Enter 6-Digit PIN" maxlength="6">
+            <div id="pinError" class="error-message" style="display: none;">Incorrect 6-Digit PIN!</div>
+            <button class="btn" id="pinSubmitBtn" onclick="checkTestPin()">Start Test</button>
+        </div>
+    </div>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('adminModal')">&times;</span>
+            <h3>Admin Access</h3>
+            <input type="password" id="adminPassword" placeholder="Enter admin password">
+            <div id="passwordError" class="error-message" style="display: none;">Incorrect password!</div>
+            <button class="btn" onclick="checkAdminPassword()">Login</button>
+        </div>
+    </div>
+
+    <script>
+        /************************
+         * JSONBin configuration
+         ************************/
+        const JSONBIN_ID = '68d903e243b1c97be952d590';
+        const JSONBIN_MASTER_KEY = '$2a$10$XZzc.4ipvMjGFeEh9J/7cuffWTZGYXoXCkJjMDjZ1wCgz.BGJ3Cse';
+        const JSONBIN_BASE = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+        const TEST_PIN = '534617'; 
+        const SAVE_INTERVAL_SECONDS = 10;
+        const TOTAL_EXAM_TIME = 75 * 60; 
+        const CRITICAL_TIME_THRESHOLD = 15 * 60; 
+        
+       
+        // Questions data (must be complete array as in your original file)
+        const questions = [
+            
+            {
+              "question": "If $\\cot A = \\frac{15}{8}$, then the value of $\\tan 2A$ will be:",
+              "options": ["$\\frac{240}{173}$", "$\\frac{240}{161}$", "$\\frac{220}{171}$", "$\\frac{200}{161}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $2a+b=10$ and $2ab=9$, then the value of $(2a-b)$ will be:",
+              "options": ["10", "4", "8", "6"],
+              "correct": 2
+            },
+            {
+              "question": "If $3\\sqrt{\\frac{1-a}{a}}+9=19-3\\sqrt{\\frac{a}{1-a}}$ then what is the value of $a$?",
+              "options": ["$3/10, 7/10$", "$1/10, 9/10$", "$2/5, 3/5$", "$1/5, 4/5$"],
+              "correct": 1
+            },
+            {
+              "question": "Simplify the following expression $(3x+2y)^{2}-(3x-2y)^{2}$.",
+              "options": ["$9x^{2}-4y^{2}$", "$12xy$", "$18x^{2}-8y^{2}$", "$24xy$"],
+              "correct": 3
+            },
+            {
+              "question": "If $x+y=2$ and $\\frac{1}{x}+\\frac{1}{y}=\\frac{18}{5}$, then the value of $(x^{3}+y^{3})$ is:",
+              "options": ["$4\\frac{2}{3}$", "$4\\frac{3}{5}$", "$3\\frac{1}{5}$", "$3\\frac{1}{3}$"],
+              "correct": 0
+            },
+            {
+              "question": "In right-angled triangle PQR, $PQ=5\\text{ cm}$, $QR = 13\\text{ cm}$ and $\\angle P=90^{\\circ}$ then find the value of $(\\tan Q - \\tan R)$.",
+              "options": ["$\\frac{60}{119}$", "$\\frac{119}{60}$", "$\\frac{14}{5}$", "$\\frac{5}{14}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $\\sin \\theta=\\frac{8}{17}$ then find the value of $\\tan \\theta$.",
+              "options": ["$\\frac{15}{17}$", "$\\frac{8}{15}$", "$\\frac{17}{8}$", "$\\frac{15}{8}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $x^{2}-4x+1=0,$ then what is the value of $x^{9}+x^{7}-194x^{5}-194x^{3}$?",
+              "options": ["4", "-4", "1", "-1"],
+              "correct": 1
+            },
+            {
+              "question": "If $x=2+\\sqrt{3}$, find the value of $x^{4}-8x^{3}+16x^{2}$.",
+              "options": ["1", "3", "0", "2"],
+              "correct": 0
+            },
+            {
+              "question": "If $x^{2}-3\\sqrt{2}x+1=0$ then what is the value of $x^{3}+\\frac{1}{x^{3}}$?",
+              "options": ["$30\\sqrt{6}$", "$45\\sqrt{2}$", "$15\\sqrt{6}$", "$30\\sqrt{2}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $a+b+c=\\frac{7}{12}$, $3a-4b+5c=\\frac{3}{4}$ and $7a-11b-13c=-\\frac{7}{12}$, then what is the value of $a+c$?",
+              "options": ["$1/2$", "$5/12$", "$3/4$", "$1/4$"],
+              "correct": 1
+            },
+            {
+              "question": "The value of $\\cos 120^{\\circ}$ is:",
+              "options": ["1", "-0.5", "0", "0.5"],
+              "correct": 1
+            },
+            {
+              "question": "If $a^{2}+b^{2}+c^{2}=a b+b c+c a$ then the value of $\\frac{11a^{4}+13b^{4}+15c^{4}}{16a^{2}b^{2}+19b^{2}c^{2}+17c^{2}a^{2}}$ is:",
+              "options": ["$\\frac{1}{4}$", "$\\frac{3}{4}$", "$1\\frac{1}{3}$", "$1\\frac{3}{4}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $x^{4}+\\frac{1}{x^{4}}=727$, $x>1$. then what is the value of $(x-\\frac{1}{x})$?",
+              "options": ["$\\pm 6$", "$\\pm 5$", "$\\pm 4$", "$\\pm 3$"],
+              "correct": 1
+            },
+            {
+              "question": "$\\triangle ABC$ is a right angle triangle. If $\\angle B=90^{\\circ}$ and $\\tan A=\\frac{1}{\\sqrt{3}}$ then find the value of $(\\sin A \\cos C + \\cos A \\sin C)$.",
+              "options": ["$\\frac{1}{3}$", "$\\frac{2}{3}$", "2", "1"],
+              "correct": 3
+            },
+            {
+              "question": "If $x=4+\\sqrt{15}$, what is the value of $(x^{2}+\\frac{1}{x^{2}})$?",
+              "options": ["48", "54", "72", "62"],
+              "correct": 3
+            },
+            {
+              "question": "If $\\sqrt{x}+\\frac{1}{\\sqrt{x}}=2\\sqrt{3}$ then $x^{4}+\\frac{1}{x^{4}}$ will be:",
+              "options": ["10406", "9602", "9606", "10402"],
+              "correct": 1
+            },
+            {
+              "question": "If $x^{4}+\\frac{1}{x^{4}}=14159$, then the value of $x+\\frac{1}{x}$ is:",
+              "options": ["9", "10", "11", "12"],
+              "correct": 2
+            },
+            {
+              "question": "If $\\sec \\theta - 2 \\cos \\theta = \\frac{7}{2}$ where $\\theta$ is positive acute angle, then the value of $\\sec \\theta$ is.",
+              "options": ["5", "6", "4", "8"],
+              "correct": 2
+            },
+            {
+              "question": "A man buys 2 apples and 3 kiwi fruits for ₹ 37. If he buys 4 apples and 5 kiwi fruits for ₹ 67 then what will be the total cost of 1 apple and 1 kiwi fruit?",
+              "options": ["₹ 20", "₹ 18", "₹ 15", "₹ 28"],
+              "correct": 2
+            },
+            {
+              "question": "The value of $\\frac{1}{8}[\\frac{1}{b-1}-\\frac{1}{b+1}-\\frac{2}{b^{2}+1}-\\frac{4}{b^{4}+1}]$ is:",
+              "options": ["$\\frac{1}{b^{8}-1}$", "$\\frac{1}{b^{8}+1}$", "$\\frac{8}{b^{8}+1}$", "$\\frac{8}{b^{8}-1}$"],
+              "correct": 0
+            },
+            {
+              "question": "If $a=8, b=5$ and $c=-9$ then the value of $\\sqrt{4a+8b-c}$ will be:",
+              "options": ["9", "12", "15", "8"],
+              "correct": 0
+            },
+            {
+              "question": "If $a+b=8$ and $ab=10,$ then the value of $a^{3}+b^{3}$ is:",
+              "options": ["312", "215", "272", "111"],
+              "correct": 2
+            },
+            {
+              "question": "If $x=2$ and $y=3$ then solve the expression $\\frac{\\sqrt{x}-\\sqrt{y}}{\\sqrt{x}+\\sqrt{y}}$",
+              "options": ["$2\\sqrt{6}-6$", "$5-2\\sqrt{6}$", "$2\\sqrt{6}-5$", "$\\sqrt{6}-5$"],
+              "correct": 2
+            },
+            {
+              "question": "If $a^{3}-b^{3}=899$ and $a-b=29,$ then the value of $(a-b)^{2}+3ab$ is equal to:",
+              "options": ["35", "16", "29", "31"],
+              "correct": 3
+            },
+            {
+              "question": "If $\\tan 3\\theta \\cdot \\tan 7\\theta = 1$. where $7\\theta$ is an acute angle, then find the value of $\\cot 15\\theta$.",
+              "options": ["$-\\sqrt{3}$", "1", "-1", "$\\sqrt{3}$"],
+              "correct": 2
+            },
+            {
+              "question": "The sum and difference of two numbers is 27 and 3 respectively. What is the ratio of two numbers?",
+              "options": ["$5:3$", "$2:1$", "$4:7$", "$5:4$"],
+              "correct": 3
+            },
+            {
+              "question": "If $a-b=3$ and $a^{3}-b^{3}=999$ then find the value of $a^{2}-b^{2}$.",
+              "options": ["60", "62", "64", "63"],
+              "correct": 3
+            },
+            {
+              "question": "If $x-4y=0$ and $x+2y=24,$ then what is the value of $\\frac{2x+3y}{2x-3y}$?",
+              "options": ["$\\frac{9}{5}$", "$\\frac{11}{5}$", "$\\frac{13}{7}$", "$\\frac{9}{7}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $\\sin \\theta=\\frac{9}{41}$ and $0^{\\circ}<\\theta<90^{\\circ}.$ then the value of $\\cot \\theta$ is:",
+              "options": ["$\\frac{39}{9}$", "$\\frac{35}{8}$", "$\\frac{40}{9}$", "$\\frac{47}{8}$"],
+              "correct": 2
+            },
+            {
+              "question": "If $\\sqrt{x}-\\frac{1}{\\sqrt{x}}=\\sqrt{3}$ then the value of $x^{4}+\\frac{1}{x^{4}}$ will be:",
+              "options": ["531", "623", "527", "7"],
+              "correct": 2
+            },
+            {
+              "question": "If $a+b+c=11$ and $ab+bc+ca=28$, then find the value of $a^{3}+b^{3}+c^{3}-3abc$.",
+              "options": ["1639", "407", "1093", "2255"],
+              "correct": 1
+            },
+            {
+              "question": "If $x^{2}-6x+1=0,$ then the value of $\\frac{x^{4}+x^{-2}}{x^{2}+1}$ is:",
+              "options": ["36", "33", "35", "39"],
+              "correct": 1
+            },
+            {
+              "question": "If $x^{4}+x^{-4}=6887$ then the positive value of $x-x^{-1}$ is:",
+              "options": ["9", "8", "12", "15"],
+              "correct": 0
+            },
+            {
+              "question": "If $x+y=4$ and $\\frac{1}{x}+\\frac{1}{y}=\\frac{16}{15},$ then what is the value of $(x^{3}+y^{3})$?",
+              "options": ["18", "16", "19", "21"],
+              "correct": 2
+            },
+            {
+              "question": "If $x^{2}-5\\sqrt{5}x+1=0$ and $x>0$ then the value of $(x^{3}-\\frac{1}{x^{3}})$ will be:",
+              "options": ["1331", "1296", "1244", "1364"],
+              "correct": 3
+            },
+            {
+              "question": "The value of $x^{3}+y^{3}+z^{3}-3xyz,$ when $x=555,$ $y=556$ and $z=557,$ is:",
+              "options": ["5006", "5002", "5004", "5008"],
+              "correct": 2
+            },
+            {
+              "question": "If $8 \\cot \\theta = 6$ then find the value of $\\frac{\\sin \\theta+\\cos \\theta}{\\sin \\theta-\\cos \\theta}$.",
+              "options": ["7", "2", "5", "12"],
+              "correct": 0
+            },
+            {
+              "question": "In $\\triangle ABC,$ $B$ is right angled and $\\cot A=\\frac{1}{2}$ then find the value of $\\frac{\\sin A(\\cos C+\\cos A)}{\\cos C(\\sin C-\\sin A)}$.",
+              "options": ["3", "-3", "2", "-2"],
+              "correct": 1
+            },
+            {
+              "question": "If $\\cos A = \\frac{9}{41}$, then find the value of $\\cot A$.",
+              "options": ["$\\frac{41}{40}$", "$\\frac{9}{40}$", "$\\frac{40}{9}$", "$\\frac{9}{41}$"],
+              "correct": 1
+            },
+            {
+              "question": "If $\\tan A = \\frac{5}{12}$ then the value of $\\cos A$ is:",
+              "options": ["$\\frac{5}{13}$", "$\\frac{13}{5}$", "$\\frac{12}{13}$", "$\\frac{12}{5}$"],
+              "correct": 2
+            },
+            {
+              "question": "If $\\frac{4}{3}(x^{2}+\\frac{1}{x^{2}})=110\\frac{2}{3}$ then find $\\frac{1}{9}(x^{3}-\\frac{1}{x^{3}});$ where $x>0$.",
+              "options": ["74", "85", "84", "76"],
+              "correct": 2
+            },
+            {
+              "question": "If $4x^{4}-37x^{2}+9=0$, $x>\\sqrt{\\frac{3}{2}}$, then what is the value of $8x^{3}-\\frac{27}{x^{3}}$?",
+              "options": ["35", "215", "-215", "-35"],
+              "correct": 1
+            },
+            {
+              "question": "If $x+\\frac{1}{x}=4$ then find the value of $x^{4}+\\frac{1}{x^{4}}$ is:",
+              "options": ["194", "196", "16", "14"],
+              "correct": 0
+            },
+            {
+              "question": "If $u+v=84$ and $u-v=4,$ then $u:v$ is equal to?",
+              "options": ["$11:10$", "$10:11$", "$10:9$", "$9:10$"],
+              "correct": 0
+            }
+        ];
+
+        // State variables
+        let currentQuestion = 0;
+        let userAnswers = {};
+        let userName = '';
+        let examTimer;
+        let progressSaver; // Periodic save interval
+        let timeRemaining = TOTAL_EXAM_TIME; 
+        let examStarted = false;
+
+        // NEW: Tracks all questions the user has landed on/viewed
+        let questionsVisited = new Set();
+
+        // --- PROGRESS RECOVERY KEYS ---
+        const PROGRESS_KEY = 'quiz_in_progress';
+        const ANSWERS_KEY = 'quiz_answers';
+        const VISITED_KEY = 'quiz_visited';
+        // ---------------------------------
+
+        // --- GLOBAL STATE FOR TIMING ---
+        let questionTimings = {}; // { index: totalTimeInSeconds }
+        let lastQuestionStartTime = 0; // Timestamp in milliseconds (Date.now())
+        // -----------------------------------
+
+        /***********************
+         * JSONBin helper funcs
+         ***********************/
+        async function fetchResponsesFromBin() {
+            try {
+                const resp = await fetch(`${JSONBIN_BASE}/latest`, {
+                    method: 'GET',
+                    headers: { 'X-Master-Key': JSONBIN_MASTER_KEY, 'Accept': 'application/json' }
+                });
+
+                if (!resp.ok) throw new Error(`Fetch failed: ${resp.status}`);
+                const json = await resp.json();
+                const payload = json?.record?.data ?? json?.record ?? json?.data ?? json;
+
+                if (Array.isArray(payload)) return payload;
+                if (Array.isArray(payload.quizResponses)) return payload.quizResponses;
+                if (Array.isArray(payload.responses)) return payload.responses;
+                
+                return payload?.quizResponses || payload?.responses || [];
+            } catch (err) {
+                return JSON.parse(localStorage.getItem('quizResponses') || '[]');
+            }
+        }
+
+        async function writeResponsesToBin(responsesArray) {
+            try {
+                const body = { data: { quizResponses: responsesArray } };
+                const resp = await fetch(`${JSONBIN_BASE}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_MASTER_KEY },
+                    body: JSON.stringify(body)
+                });
+                if (!resp.ok) throw new Error('JSONBin write failed');
+
+                try { localStorage.setItem('quizResponses', JSON.stringify(responsesArray)); } catch (e) { console.warn('Could not write to localStorage as cache:', e); }
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        async function appendResponseRemote(newResponse) {
+            const current = await fetchResponsesFromBin();
+            current.push(newResponse);
+            return { ok: await writeResponsesToBin(current), current };
+        }
+
+        // -------------------------
+        // DATA PERSISTENCE & RECOVERY
+        // -------------------------
+
+        function saveProgress() {
+            const progress = {
+                currentQuestion: currentQuestion,
+                timeRemaining: timeRemaining,
+                userName: userName,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+            localStorage.setItem(ANSWERS_KEY, JSON.stringify(userAnswers));
+            localStorage.setItem(VISITED_KEY, JSON.stringify(Array.from(questionsVisited)));
+        }
+
+        function recoverProgress() {
+            const progressStr = localStorage.getItem(PROGRESS_KEY);
+            const answersStr = localStorage.getItem(ANSWERS_KEY);
+            const visitedStr = localStorage.getItem(VISITED_KEY);
+
+            if (!progressStr || !answersStr || !questions.length) return false;
+
+            const progress = JSON.parse(progressStr);
+            const answers = JSON.parse(answersStr);
+            const visited = JSON.parse(visitedStr || '[]');
+
+            if (progress.timeRemaining <= 0) { clearLocalProgress(); return false; }
+
+            if (confirm(`A previous exam session was found for ${progress.userName}, started at ${new Date(progress.timestamp).toLocaleTimeString()}. Do you want to continue?`)) {
+                currentQuestion = progress.currentQuestion;
+                timeRemaining = progress.timeRemaining;
+                userName = progress.userName;
+                userAnswers = answers;
+                questionsVisited = new Set(visited);
+
+                document.getElementById('landingPage').style.display = 'none';
+                document.getElementById('quizContainer').style.display = 'block';
+                document.getElementById('userForm').style.display = 'none';
+                document.getElementById('navigation').style.display = 'flex';
+                document.getElementById('questionsContainer').style.display = 'block';
+                document.getElementById('palettePanel').style.display = 'flex';
+
+                document.getElementById('userName').value = userName;
+
+                generateQuestions();
+                
+                for (let index in userAnswers) {
+                    const optIndex = userAnswers[index];
+                    const optionElement = document.querySelector(`#question-${index} .option:nth-child(${optIndex + 1})`);
+                    if (optionElement) {
+                        optionElement.classList.add('selected');
+                        const radio = optionElement.querySelector('input[type="radio"]');
+                        if (radio) radio.checked = true;
+                    }
+                }
+
+                showQuestion(currentQuestion);
+                examStarted = true;
+                startTimer();
+
+                return true;
+            } else {
+                clearLocalProgress();
+                return false;
+            }
+        }
+
+        function clearLocalProgress() {
+            localStorage.removeItem(PROGRESS_KEY);
+            localStorage.removeItem(ANSWERS_KEY);
+            localStorage.removeItem(VISITED_KEY);
+        }
+
+        // -------------------------
+        // UI & NAVIGATION
+        // -------------------------
+
+        function startTimer() {
+            if (examTimer) clearInterval(examTimer);
+            if (progressSaver) clearInterval(progressSaver);
+
+            // Set the start time for the current session/question
+            lastQuestionStartTime = Date.now(); 
+
+            examTimer = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= CRITICAL_TIME_THRESHOLD) { 
+                    document.getElementById('timerContainer').classList.add('timer-warning');
+                    document.getElementById('autoSubmitWarning').style.display = 'block';
+                }
+                if (timeRemaining <= 60) { 
+                    document.getElementById('timerContainer').classList.remove('timer-warning');
+                    document.getElementById('timerContainer').classList.add('timer-critical');
+                }
+
+                if (timeRemaining <= 0) {
+                    autoSubmitTest();
+                }
+            }, 1000);
+            
+            progressSaver = setInterval(saveProgress, SAVE_INTERVAL_SECONDS * 1000);
+        }
+
+        function stopTimer() {
+            if (examTimer) clearInterval(examTimer);
+            if (progressSaver) clearInterval(progressSaver);
+            examTimer = null;
+            progressSaver = null;
+        }
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(timeRemaining / 3600);
+            const minutes = Math.floor((timeRemaining % 3600) / 60);
+            const seconds = timeRemaining % 60;
+            
+            const display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').textContent = display;
+        }
+
+        function autoSubmitTest() {
+            stopTimer();
+            submitTest(true);
+        }
+        
+        // NEW HELPER: Records time spent on the previous question
+        function recordQuestionTime(prevIndex) {
+            if (prevIndex !== null && examStarted) {
+                // Calculate time spent on the previous question (in seconds)
+                const timeSpent = (Date.now() - lastQuestionStartTime) / 1000;
+                
+                // Add time to the total time for that question index
+                questionTimings[prevIndex] = (questionTimings[prevIndex] || 0) + timeSpent;
+            }
+            // Set the start time for the current/next active question
+            lastQuestionStartTime = Date.now();
+        }
+
+
+        // --- PIN GATEWAY FUNCTIONS ---
+        function startTest() {
+            document.getElementById('modalTitle').textContent = 'Enter Test PIN';
+            document.getElementById('testPinInput').value = '';
+            document.getElementById('pinError').style.display = 'none';
+            document.getElementById('pinSubmitBtn').onclick = checkTestPin;
+            document.getElementById('passwordModal').style.display = 'block';
+        }
+
+        function checkTestPin() {
+            const enteredPin = document.getElementById('testPinInput').value;
+            const pinError = document.getElementById('pinError');
+
+            if (enteredPin === TEST_PIN) {
+                closeModal('passwordModal');
+                
+                document.getElementById('landingPage').style.display = 'none';
+                document.getElementById('quizContainer').style.display = 'block';
+                
+                // Show the sign-in form only, other elements remain hidden
+                document.getElementById('questionsContainer').style.display = 'none';
+                document.getElementById('navigation').style.display = 'none';
+                document.getElementById('palettePanel').style.display = 'none';
+                document.getElementById('userForm').style.display = 'flex'; 
+
+            } else {
+                pinError.textContent = 'Incorrect 6-Digit PIN!';
+                pinError.style.display = 'block';
+            }
+        }
+        // --- END PIN GATEWAY FUNCTIONS ---
+
+        function togglePalette() {
+            const palette = document.getElementById('palettePanel');
+            palette.classList.toggle('visible'); 
+        }
+
+        function startQuiz() {
+            userName = document.getElementById('userName').value.trim();
+
+            if (!userName) {
+                alert('Please enter your name');
+                return;
+            }
+
+            document.getElementById('userForm').style.display = 'none';
+            document.getElementById('navigation').style.display = 'flex';
+            document.getElementById('questionsContainer').style.display = 'block';
+            document.getElementById('palettePanel').style.display = 'flex'; 
+            
+            showQuestion(0);
+            
+            examStarted = true;
+            startTimer();
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function generateQuestions() {
+            const container = document.getElementById('questionsContainer');
+            const paletteGrid = document.getElementById('paletteGrid');
+            container.innerHTML = '';
+            paletteGrid.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                // 1. Generate Question UI
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                questionDiv.id = `question-${index}`;
+                
+                let optionsHtml = '';
+                q.options.forEach((option, optIndex) => {
+                    const isChecked = userAnswers[index] === optIndex ? 'checked' : '';
+                    const isSelected = userAnswers[index] === optIndex ? ' selected' : '';
+                    
+                    optionsHtml += `
+                        <li class="option${isSelected}" onclick="selectOption(${index}, ${optIndex})">
+                            <label>
+                                <input type="radio" name="question-${index}" value="${optIndex}" ${isChecked}>
+                                (${String.fromCharCode(65 + optIndex)}) ${option}
+                            </label>
+                        </li>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question">
+                        <div class="question-header">Question ${index + 1}</div>
+                        <div class="question-text">${q.question}</div>
+                        <ul class="options">${optionsHtml}</ul>
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+                
+                // 2. Generate Palette Item
+                const paletteItem = document.createElement('div');
+                paletteItem.className = `palette-item palette-default`;
+                paletteItem.textContent = index + 1;
+                paletteItem.onclick = () => showQuestion(index);
+                paletteGrid.appendChild(paletteItem);
+            });
+            
+            updatePalette();
+        }
+
+        function updatePalette() {
+            const paletteItems = document.querySelectorAll('#paletteGrid .palette-item');
+            
+            questions.forEach((q, index) => {
+                const item = paletteItems[index];
+                item.classList.remove('palette-answered', 'palette-unanswered', 'palette-current', 'palette-default');
+                
+                const isAnswered = userAnswers[index] !== undefined && userAnswers[index] !== null;
+                const isVisited = questionsVisited.has(index);
+                
+                if (index === currentQuestion) {
+                    item.classList.add('palette-current'); // Current: Yellow/Gold
+                } else if (isAnswered) {
+                    item.classList.add('palette-answered'); // Answered: Green
+                } else if (isVisited) {
+                    item.classList.add('palette-unanswered'); // Unanswered (Seen): Red
+                } else {
+                    item.classList.add('palette-default'); // Not Seen: White
+                }
+            });
+        }
+
+        function calculateScore(answers) {
+             let correct = 0;
+            let incorrect = 0;
+            let unattempted = 0;
+            let detailedResults = {};
+
+            for (let i = 0; i < questions.length; i++) {
+                const userAnswer = answers[i];
+                const correctAnswer = questions[i].correct;
+                
+                if (userAnswer === undefined || userAnswer === null) {
+                    unattempted++;
+                    detailedResults[i] = { status: 'unattempted', icon: '–', points: 0 };
+                } else if (userAnswer === correctAnswer) {
+                    correct++;
+                    detailedResults[i] = { status: 'correct', icon: '✅', points: 2 };
+                } else {
+                    incorrect++;
+                    detailedResults[i] = { status: 'incorrect', icon: '❌', points: -0.5 };
+                }
+            }
+
+            const totalScore = (correct * 2) + (incorrect * -0.5);
+            const percentage = ((correct * 2) / (questions.length * 2)) * 100;
+
+            return {
+                correct,
+                incorrect,
+                unattempted,
+                totalScore,
+                percentage: percentage.toFixed(2),
+                maxMarks: questions.length * 2,
+                detailedResults
+            };
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            const options = document.querySelectorAll(`#question-${questionIndex} .option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            options[optionIndex].classList.add('selected');
+
+            userAnswers[questionIndex] = optionIndex;
+            
+            updatePalette(); 
+            saveProgress();
+        }
+
+        function showQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+
+            // CRITICAL FIX: Record time for the question being left BEFORE changing the index
+            recordQuestionTime(currentQuestion);
+
+            // Mark question as visited
+            questionsVisited.add(index);
+            
+            document.querySelectorAll('.question-container').forEach(q => {
+                q.classList.remove('active');
+            });
+            document.getElementById(`question-${index}`).classList.add('active');
+
+            currentQuestion = index; // Update index after recording time
+
+            document.getElementById('progress').textContent = `Question ${index + 1} of ${questions.length}`;
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (prevBtn) prevBtn.disabled = (index === 0);
+            
+            if (index === questions.length - 1) {
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (submitBtn) submitBtn.style.display = 'inline-block';
+            } else {
+                if (nextBtn) nextBtn.style.display = 'inline-block';
+                if (submitBtn) submitBtn.style.display = 'none';
+            }
+            
+            updatePalette(); 
+            MathJax.typeset(); 
+            saveProgress(); // Save after state change
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) showQuestion(currentQuestion - 1);
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) showQuestion(currentQuestion + 1);
+        }
+
+        async function submitTest(isAutoSubmit = false) {
+            stopTimer(); 
+            
+            const confirmMessage = isAutoSubmit ? 
+                'Your test has been auto-submitted due to time expiry.' :
+                'Are you sure you want to submit your test? You cannot change your answers after submission.';
+                
+            if (!isAutoSubmit && !confirm(confirmMessage)) {
+                if (examStarted) startTimer();
+                return;
+            }
+
+            // CRITICAL FIX: Record time for the final active question
+            if (examStarted) {
+                recordQuestionTime(currentQuestion);
+            }
+
+            try {
+                const scoreData = calculateScore(userAnswers);
+                
+                const response = {
+                    name: userName,
+                    answers: userAnswers,
+                    scoreData: scoreData,
+                    timestamp: new Date().toISOString(),
+                    submittedAt: new Date().toLocaleString(),
+                    isAutoSubmitted: isAutoSubmit,
+                    timeSpent: TOTAL_EXAM_TIME - timeRemaining,
+                    questionTimings: questionTimings // NEW: Include per-question data
+                };
+
+                const { ok, current } = await appendResponseRemote(response);
+
+                if (ok) {
+                    console.log('Saved response to JSONBin successfully.');
+                } else {
+                    console.warn('Failed to save to JSONBin; final fallback to localStorage cache.');
+                }
+                
+                clearLocalProgress();
+
+                document.getElementById('quizContainer').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error in final submission process:', error);
+                clearLocalProgress();
+                
+                document.getElementById('quizContainer').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                alert('Submission complete, though there was a server error.');
+            }
+        }
+        
+        // NEW HELPER: Records time spent on the previous question
+        function recordQuestionTime(prevIndex) {
+            if (prevIndex !== null && examStarted && questionsVisited.has(prevIndex)) {
+                // Calculate time spent on the previous question (in seconds)
+                const timeSpent = (Date.now() - lastQuestionStartTime) / 1000;
+                
+                // Add time to the total time for that question index
+                questionTimings[prevIndex] = (questionTimings[prevIndex] || 0) + timeSpent;
+            }
+            // Set the start time for the current/next active question
+            lastQuestionStartTime = Date.now();
+        }
+
+        // -------------------------
+        // ADMIN AND DOWNLOAD FUNCTIONS
+        // -------------------------
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'block';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+        }
+
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'AryanM@123M') {
+                closeModal('adminModal');
+                showAdminPanel();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+            }
+        }
+
+        async function showAdminPanel() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            
+            await displayResponses();
+        }
+
+        async function displayResponses() {
+            const container = document.getElementById('responsesContainer');
+            if (typeof MathJax !== 'undefined') {
+                await MathJax.startup.promise;
+            }
+            const responses = await fetchResponsesFromBin();
+
+            if (!responses || responses.length === 0) {
+                container.innerHTML = '<p>No responses yet.</p>';
+                return;
+            }
+
+            let allResponsesHtml = '';
+
+            responses.forEach((response, responseIndex) => {
+                const scoreData = response.scoreData || calculateScore(response.answers || {});
+                const timings = response.questionTimings || {};
+                const totalAttempted = scoreData.correct + scoreData.incorrect;
+                
+                const timeSpentMinutes = Math.floor((response.timeSpent || 0) / 60);
+                const timeSpentSeconds = (response.timeSpent || 0) % 60;
+                const timeSpentDisplay = `${timeSpentMinutes}m ${timeSpentSeconds}s`;
+
+                // --- SUMMARY PANEL HTML ---
+                let summaryHtml = `
+                    <div class="report-summary">
+                        <h3 class="test-title">SSC CHSL - Mathematics Practice Test 2 Report</h3>
+                        <div class="summary-details">
+                            <p><strong>Name:</strong> ${response.name || '—'}</p>
+                            <p><strong>Date & Time:</strong> ${response.submittedAt}</p>
+                            <p><strong>Time Taken:</strong> ${timeSpentDisplay}</p>
+                            <p><strong>Score:</strong> ${scoreData.totalScore.toFixed(2)} / ${scoreData.maxMarks}</p>
+                            <p><strong>Percentage:</strong> ${scoreData.percentage}%</p>
+                            <p><strong>Correct:</strong> ${scoreData.correct}</p>
+                            <p><strong>Incorrect:</strong> ${scoreData.incorrect}</p>
+                            <p><strong>Unattempted:</strong> ${scoreData.unattempted}</p>
+                            <p><strong>Attempted:</strong> ${totalAttempted}</p>
+                        </div>
+                    </div>`;
+                // --- END SUMMARY PANEL HTML ---
+
+                // --- TOOLBAR ---
+                let toolbarHtml = `
+                    <div class="toolbar" id="toolbar-${responseIndex}">
+                        <label><input type="checkbox" data-col="q-num" checked> Q#</label>
+                        <label><input type="checkbox" data-col="q-text" checked> Question</label>
+                        <label><input type="checkbox" data-col="q-options" checked> Options</label>
+                        <label><input type="checkbox" data-col="q-selection-letter" checked> Your Option</label>
+                        <label><input type="checkbox" data-col="q-correct-letter" checked> Correct Option</label>
+                        <label><input type="checkbox" data-col="q-result" checked> Result</label>
+                        <label><input type="checkbox" data-col="q-time" checked> Time</label>
+                    </div>
+                `;
+                
+                let tableHtml = '<div class="response-view"><div style="overflow-x: auto;"><table class="response-table" style="width: 100%; font-size: 12px;"><thead><tr>';
+                
+                // NEW COLUMN HEADERS AND ORDER & WIDTHS
+                tableHtml += '<th class="col-q-num" style="width: 4%;">Q#</th>';
+                tableHtml += '<th class="col-q-text" style="width: 42%;">Question</th>';
+                tableHtml += '<th class="col-q-options" style="width: 18%;">Options (with Text)</th>';
+                tableHtml += '<th class="col-q-selection-letter" style="width: 8%;">Your Opt.</th>';
+                tableHtml += '<th class="col-q-correct-letter" style="width: 8%;">Correct Opt.</th>';
+                tableHtml += '<th class="col-q-result" style="width: 10%;">Result</th>';
+                tableHtml += '<th class="col-q-time" style="width: 10%;">Time (s)</th></tr></thead><tbody>';
+                // --- END TOOLBAR & TABLE SETUP ---
+
+                for (let i = 0; i < questions.length; i++) {
+                    const userAnswer = (response.answers || {})[i];
+                    const correctAnswer = questions[i].correct;
+                    const result = scoreData.detailedResults[i];
+
+                    const fullQuestionText = questions[i].question;
+                    const resultIcon = result?.icon || '–';
+                    const points = result?.points || 0;
+                    const timePerQ = (timings[i] || 0).toFixed(1);
+
+                    const correctLetter = String.fromCharCode(65 + correctAnswer);
+                    let userAnswerLetter = '—';
+
+                    let allOptionsHtml = '<ul style="list-style: none; padding: 0; margin: 0;">';
+                    questions[i].options.forEach((optionText, optIndex) => {
+                        const optionLetter = String.fromCharCode(65 + optIndex);
+                        const isCorrect = optIndex === correctAnswer;
+                        const isUserSelection = optIndex === userAnswer;
+                        
+                        let optionClass = 'font-weight: normal;';
+                        let prefix = ''; 
+                        
+                        
+                        
+                        if (isUserSelection) {
+                            userAnswerLetter = `${optionLetter}`; 
+                            
+                        }
+                        
+                        allOptionsHtml += `<li style="${optionClass} font-size: 11px; margin-bottom: 2px; line-height: 1.2;">${prefix}${optionLetter}) ${optionText}</li>`;
+                    });
+                    allOptionsHtml += '</ul>';
+
+                    tableHtml += '<tr>';
+                    // NEW COLUMN DATA AND ORDER
+                    tableHtml += `<td class="col-q-num" style="font-size: 13px; font-weight: 170;">${i + 1}</td>`;
+                    tableHtml += `<td class="col-q-text math-question" style="font-size: 15px; font-weight: 150;">${fullQuestionText}</td>`;
+                    tableHtml += `<td class="col-q-options" style="font-size: 17px; font-weight: 150;">${allOptionsHtml}</td>`;
+                    
+                    // New column: Your Option (only letter)
+                    tableHtml += `<td class="col-q-selection-letter" style="text-align: center; font-weight: bold; color: ${userAnswer === correctAnswer ? '#28a745' : userAnswer !== undefined ? '#e74c3c' : '#999'};">${userAnswerLetter}</td>`;
+                    
+                    // New column: Correct Option (only letter)
+                    tableHtml += `<td class="col-q-correct-letter" style="text-align: center; font-weight: bold; color: #28a745;">${correctLetter}</td>`;
+                    
+                    tableHtml += `<td class="col-q-result" style="font-weight: bold; font-size: 11px; text-align: center; color: ${points > 0 ? '#27ae60' : points < 0 ? '#e74c3c' : '#95a5a6'};">${resultIcon}<br>(${points > 0 ? '+' : ''}${points})</td>`;
+                    tableHtml += `<td class="col-q-time">${timePerQ}</td>`;
+                    tableHtml += '</tr>';
+                }
+                
+                tableHtml += '</tbody></table></div></div>';
+                
+                allResponsesHtml += `<div class="response-report" id="response-report-${responseIndex}">` + summaryHtml + toolbarHtml + tableHtml + `</div>`;
+            });
+
+            container.innerHTML = allResponsesHtml;
+            
+            // Attach event listeners for the toolbars
+            document.querySelectorAll('.toolbar').forEach(toolbar => {
+                toolbar.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', toggleColumn);
+                });
+            });
+
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // New function to handle column visibility toggling
+        function toggleColumn(event) {
+            const checkbox = event.target;
+            const colClass = `col-${checkbox.getAttribute('data-col')}`;
+            
+            const report = checkbox.closest('.response-report');
+            if (!report) return;
+
+            const elementsToToggle = report.querySelectorAll(`.${colClass}`);
+            
+            elementsToToggle.forEach(el => {
+                if (checkbox.checked) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+        }
+
+
+        // New function to trigger native browser print (kept simple)
+        function printReport() {
+            // This relies on the @media print CSS rules to hide all buttons and controls.
+            window.print();
+        }
+        
+        // --- DOWNLOAD UTILITIES (Kept from previous functional code) ---
+        function cleanMathText(text) {
+            if (typeof text !== 'string') return String(text);
+            let cleaned = text;
+
+            // 1. Remove delimiters and environment commands
+            cleaned = cleaned.replace(/\$/g, '');
+            cleaned = cleaned.replace(/\\left|\\right/g, ''); 
+            cleaned = cleaned.replace(/\\cdot/g, '*');
+            cleaned = cleaned.replace(/\\quad|\\qquad/g, ' '); 
+
+            // 2. Simplify fractions and roots
+            cleaned = cleaned.replace(/\\frac{(.*?)}{(.*?)}/g, '($1/$2)'); 
+            cleaned = cleaned.replace(/\\sqrt{(.*?)}/g, 'sqrt($1)'); 
+            cleaned = cleaned.replace(/(\\w+)\^\{(.*?)\}/g, '$1^($2)'); // x^{2} -> x^(2)
+            cleaned = cleaned.replace(/(\w+)\^([a-zA-Z0-9])/g, '$1^$2'); // x^2 -> x^2
+
+            // 3. Handle Greek letters and functions (e.g., \sin, \theta)
+            cleaned = cleaned.replace(/\\cos/g, 'cos');
+            cleaned = cleaned.replace(/\\sin/g, 'sin');
+            cleaned = cleaned.replace(/\\tan/g, 'tan');
+            cleaned = cleaned.replace(/\\cot/g, 'cot');
+            cleaned = cleaned.replace(/\\sec/g, 'sec');
+            cleaned = cleaned.replace(/\\csc/g, 'csc');
+            cleaned = cleaned.replace(/\\theta/g, 'θ');
+            cleaned = cleaned.replace(/\\alpha/g, 'α');
+            cleaned = cleaned.replace(/\\beta/g, 'β');
+
+            // 4. Handle operators and units
+            cleaned = cleaned.replace(/\\pm/g, '+/-');
+            cleaned = cleaned.replace(/\\text{(.*?)}/g, '$1'); // \text{cm} -> cm
+            cleaned = cleaned.replace(/\\circ/g, ' deg'); // \circ -> deg
+            cleaned = cleaned.replace(/\\triangle/g, '∆'); 
+            cleaned = cleaned.replace(/\\ge/g, '>=');
+            cleaned = cleaned.replace(/\\le/g, '<=');
+            cleaned = cleaned.replace(/\\equiv/g, '≡');
+            cleaned = cleaned.replace(/\\ne/g, '≠');
+            
+            // 5. Clean up any remaining backslashes that don't represent a known command
+            cleaned = cleaned.replace(/\\/g, ''); 
+
+            return cleaned.trim();
+        }
+
+        function escapeForCSV(text) {
+            if (text === null || text === undefined) return '';
+            const str = String(text).replace(/"/g, '""');
+            return `"${str}"`;
+        }
+
+        function triggerDownload(data, filename) {
+            const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            
+            if (link.download !== undefined) { 
+                const url = URL.createObjectURL(blob);
+                link.setAttribute("href", url);
+                link.setAttribute("download", filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('Your browser does not support direct downloading. Please copy and paste the data.');
+            }
+        }
+
+        /** DOWNLOAD FINAL RESULTS (CSV) - Per Question Row */
+        async function downloadResultsCSV() {
+            const responses = await fetchResponsesFromBin();
+            
+            if (!responses || responses.length === 0) {
+                alert('No results to download');
+                return;
+            }
+
+            const questionHeaders = ["User Status", "Q#", "Result", "Time (s)", "Points", "Question Text", "User Answer", "Correct Answer"];
+            let csvContent = questionHeaders.map(escapeForCSV).join(",") + "\n";
+
+            responses.forEach(response => {
+                let scoreData = response.scoreData || calculateScore(response.answers || {});
+                const timeSpentMinutes = ((response.timeSpent || 0) / 60).toFixed(2);
+                const timings = response.questionTimings || {}; 
+
+                const userHeader = [
+                    `USER: ${response.name}`, 
+                    `SCORE: ${scoreData.totalScore.toFixed(2)}/${scoreData.maxMarks}`,
+                    `PERCENTAGE: ${scoreData.percentage}%`, 
+                    `CORRECT: ${scoreData.correct}`, 
+                    `INCORRECT: ${scoreData.incorrect}`, 
+                    `UNATTEMPTED: ${scoreData.unattempted}`,
+                    `TIME TAKEN: ${timeSpentMinutes} min`, 
+                    `SUBMITTED: ${response.submittedAt}`, 
+                    `AUTO-SUBMIT: ${response.isAutoSubmitted ? 'Yes' : 'No'}`
+                ];
+                csvContent += userHeader.map(escapeForCSV).join(",") + "\n";
+
+                for (let i = 0; i < questions.length; i++) {
+                    const question = questions[i];
+                    const userAnswerIndex = (response.answers || {})[i];
+                    const correctAnswerIndex = question.correct;
+                    const result = scoreData.detailedResults[i];
+
+                    const userStatus = result?.status.toUpperCase() || 'UNATTEMPTED';
+                    const timePerQ = (timings[i] || 0).toFixed(1); 
+
+                    let userAnswerText = 'Not Answered';
+                    if (userAnswerIndex !== undefined && userAnswerIndex !== null) {
+                        const optionLetter = String.fromCharCode(65 + userAnswerIndex);
+                        userAnswerText = `${optionLetter}) ${cleanMathText(question.options[userAnswerIndex])}`;
+                    }
+
+                    const correctLetter = String.fromCharCode(65 + correctAnswerIndex);
+                    const correctAnswerText = `${correctLetter}) ${cleanMathText(question.options[correctAnswerIndex])}`;
+
+                    const questionRow = [
+                        userStatus,
+                        i + 1,
+                        userStatus === 'CORRECT' ? 'C' : userStatus === 'INCORRECT' ? 'I' : 'U',
+                        timePerQ, 
+                        result?.points || 0,
+                        cleanMathText(question.question), 
+                        userAnswerText,
+                        correctAnswerText
+                    ];
+                    
+                    csvContent += questionRow.map(escapeForCSV).join(",") + "\n";
+                }
+            });
+
+            triggerDownload(csvContent, `ssc_chsl_final_results_${new Date().toISOString().split('T')[0]}.csv`);
+        }
+
+        /** DOWNLOAD RAW DATA (CSV) - Per Question Row */
+        async function downloadRawDataCSV() {
+            const responses = await fetchResponsesFromBin();
+            
+            if (!responses || responses.length === 0) {
+                alert('No raw data to download');
+                return;
+            }
+            
+            const rawHeaders = ["User Name", "Q#", "Question Text", "All Options", "User Selection"];
+            let csvContent = rawHeaders.map(escapeForCSV).join(",") + "\n";
+            
+            responses.forEach(response => {
+                const userNameHeader = [`USER: ${response.name}`]; 
+                csvContent += userNameHeader.map(escapeForCSV).join(",") + "\n";
+                
+                for (let i = 0; i < questions.length; i++) {
+                    const question = questions[i];
+                    const userAnswerIndex = (response.answers || {})[i];
+                    
+                    const allOptions = question.options.map((opt, idx) => 
+                        `${String.fromCharCode(65 + idx)}) ${cleanMathText(opt)}`
+                    ).join(' | ');
+                    
+                    let userAnswerText = 'Not Answered';
+                    if (userAnswerIndex !== undefined && userAnswerIndex !== null) {
+                        const optionLetter = String.fromCharCode(65 + userAnswerIndex);
+                        const optionText = cleanMathText(question.options[userAnswerIndex]);
+                        userAnswerText = `${optionLetter}) ${optionText}`;
+                    }
+                    
+                    const questionRow = [
+                        response.name,
+                        i + 1,
+                        cleanMathText(question.question),
+                        allOptions,
+                        userAnswerText
+                    ];
+                    
+                    csvContent += questionRow.map(escapeForCSV).join(",") + "\n";
+                }
+            });
+
+            triggerDownload(csvContent, `ssc_chsl_raw_data_${new Date().toISOString().split('T')[0]}.csv`);
+        }
+
+        async function clearAllResponses() {
+            if (!confirm('Are you sure you want to delete all user responses? This cannot be undone.')) return;
+
+            localStorage.removeItem('quizResponses');
+
+            const ok = await writeResponsesToBin([]);
+
+            if (ok) {
+                await displayResponses();
+                alert('All responses have been cleared from the server and local cache.');
+            } else {
+                alert('Failed to clear responses on server. Local responses cleared only.');
+                await displayResponses();
+            }
+        }
+
+        function goHome() {
+            stopTimer(); 
+            clearLocalProgress();
+            
+            document.getElementById('landingPage').style.display = 'block';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            
+            currentQuestion = 0;
+            timeRemaining = TOTAL_EXAM_TIME; 
+            examStarted = false;
+            updateTimerDisplay();
+            document.getElementById('userName').value = '';
+            document.getElementById('userForm').style.display = 'block';
+            document.getElementById('navigation').style.display = 'none';
+            document.getElementById('autoSubmitWarning').style.display = 'none';
+            document.getElementById('timerContainer').classList.remove('timer-warning', 'timer-critical');
+        }
+
+        // -------------------------
+        // INITIALIZATION & EVENT LISTENERS
+        // -------------------------
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const recovered = recoverProgress();
+
+            if (!recovered) {
+                document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') checkAdminPassword();
+                });
+
+                document.getElementById('testPinInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') checkTestPin();
+                });
+            }
+            
+            updateTimerDisplay();
+            
+            if (!recovered) {
+                generateQuestions();
+            }
+        });
+
+        window.addEventListener('beforeunload', function (e) {
+            if (examStarted && timeRemaining > 0) {
+                saveProgress(); 
+
+                if (timeRemaining <= 300) { 
+                    autoSubmitTest(); 
+                }
+                
+                const message = 'Your exam progress has been saved. You can continue later.';
+                e.preventDefault();
+                e.returnValue = message;
+                return message;
+            }
+        });
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('adminModal');
+            if (event.target === modal) closeModal('adminModal');
+            
+            const pinModal = document.getElementById('passwordModal');
+            if (event.target === pinModal) closeModal('passwordModal');
+        }
+
+        document.addEventListener('contextmenu', function(e) { if (examStarted) e.preventDefault(); });
+        document.addEventListener('keydown', function(e) { 
+            if (examStarted) {
+                if (e.key === 'F5' || (e.ctrlKey && e.key === 'r') || e.key === 'F12') {
+                    e.preventDefault();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
