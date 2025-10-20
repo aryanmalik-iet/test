@@ -463,14 +463,14 @@
             <div class="header">
                 <div class="govt-logo" style="background:#dc3545;border-radius:0;">SSC</div>
                 <h1>Staff Selection Commission</h1>
-                <h2>Random Test 1</h2>
+                <h2>Practice Test - 1</h2>
                 <p class="subtitle">Combined Higher Secondary Level Examination</p>
                 <div class="exam-info">
                     <h3>Examination Instructions:</h3>
                     <ul>
-                        <li>Total Questions: 13</li>
-                        <li>Maximum Marks: 26</li>
-                        <li>Time Duration: <strong>30 Minutes</strong></li>
+                        <li>Total Questions: 45</li>
+                        <li>Maximum Marks: 90</li>
+                        <li>Time Duration: <strong>1 hr 15 min</strong></li>
                         <li><strong style="color: #dc3545;">⚠️ Test will auto-submit when time expires</strong></li>
                         <li>Marking Scheme: +2 for correct, -0.5 for incorrect, 0 for unattempted</li>
                         <li>Do not refresh the page during exam</li>
@@ -506,14 +506,14 @@
                     </div>
 
                     <div id="autoSubmitWarning" class="auto-submit-warning" style="display: none;">
-                        ⚠️ WARNING: Test will be automatically submitted in less than 2 minutes!
+                        ⚠️ WARNING: Test will be automatically submitted in less than 15 minutes!
                     </div>
 
                     <div id="questionsContainer"></div>
 
                     <div class="navigation" id="navigation" style="display: none;">
                         <button class="btn-nav" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
-                        <div class="progress" id="progress">Question 1 of 13</div>
+                        <div class="progress" id="progress">Question 1 of 45</div>
                         <button class="btn-nav" id="nextBtn" onclick="nextQuestion()">Next</button>
                         <button class="btn-nav" id="submitBtn" onclick="submitTest()" style="display: none;">Submit Test</button>
                     </div>
@@ -578,7 +578,7 @@
         const JSONBIN_ID = '68d903e243b1c97be952d590';
         const JSONBIN_MASTER_KEY = '$2a$10$XZzc.4ipvMjGFeEh9J/7cuffWTZGYXoXCkJjMDjZ1wCgz.BGJ3Cse';
         const JSONBIN_BASE = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
-        const TEST_PIN = '223344'; 
+        const TEST_PIN = '225544'; 
         const SAVE_INTERVAL_SECONDS = 10;
         const TOTAL_EXAM_TIME = 30 * 60; 
         const CRITICAL_TIME_THRESHOLD = 2 * 60; 
